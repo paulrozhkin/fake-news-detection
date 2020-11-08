@@ -1,0 +1,24 @@
+{
+  "name": "Fake News Detector",
+  "version": "1.0",
+  "description": "Detects fake news in English.",
+  "manifest_version": 2,
+  "permissions": ["activeTab", "declarativeContent", "storage", "http://*/", "https://*/"],
+  "browser_action": {
+    "default_popup": "fake-news.html",
+    "default_icon": "fake-news.png"
+  },
+  "background": {
+    "scripts": ["background.js"],
+    "persistent": false
+  },
+  "commands": {
+    "_execute_browser_action": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+F",
+        "mac": "MacCtrl+Shift+F"
+      },
+      "description": "Opens window for detect"
+    }
+  }
+}
