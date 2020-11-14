@@ -148,25 +148,3 @@ def training_and_save_model():
                 print("{}/{}. Current accuracy: {}".format(idx, total, number_right / idx))
 
     print("Accuracy on test data: {}".format(number_right / total))
-
-
-def test_news(text, device, model, tokenizer):
-    text_parts = preprocess_text(text, device, tokenizer)
-    overall_output = torch.zeros((1, 2)).to(device)
-    try:
-        for part in text_parts:
-            if len(part) > 0:
-                overall_output += model(part.reshape(1, -1))[0]
-    except RuntimeError:
-        print("GPU out of memory, skipping this entry.")
-
-    overall_output = F.softmax(overall_output[0], dim=-1)
-
-    value, result = overall_output.max(0)
-
-    term = "fake"
-    if result.item() == 0:
-        term = "real"
-
-    print("{} at {}%".format(term, value.item() * 100))
-    return term, value.item() * 100

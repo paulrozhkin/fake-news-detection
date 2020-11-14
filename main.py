@@ -3,8 +3,8 @@ from flask import Flask
 from flask import jsonify
 from flask_cors import CORS
 
-from detector import training_and_save_model, test_news
-from fakenews import load_specific_model
+from detector import training_and_save_model
+from fakenews import load_specific_model, detect_fake
 
 app = Flask(__name__)
 CORS(app)
@@ -17,7 +17,7 @@ def fake_detector():
     json_data = flask.request.json
     news = json_data["news"]
 
-    isFake, probability = test_news(news, device, model, tokenizer)
+    isFake, probability = detect_fake(news, device, model, tokenizer)
     return jsonify(
         isFake=isFake,
         probability=probability
