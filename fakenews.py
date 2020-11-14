@@ -33,8 +33,7 @@ def detect_fake(text, device, model, tokenizer):
 
     term = False
     if result.item() == 0:
-        if (value.item()*100 >= 70):
-            term = True
-    #print(result.item())
-    print("{} at {}%".format(term, value.item() * 100))
+        term = True
+
+    print("Is real - {} at {}%".format(term, value.item() * 100))
     return term, value.item() * 100

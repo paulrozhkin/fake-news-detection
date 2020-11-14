@@ -23,17 +23,16 @@ function detectNews() {
             try {
                 const jsonResponse = JSON.parse(xhr.response);
 
-		const fakeProbability = Number(jsonResponse.probability).toFixed(2)
+                const probability = Number(jsonResponse.probability).toFixed(2)
 
-                if (jsonResponse.isFake) {
-                    $("#news-text").val("This is fake news with a probability " + (100 - fakeProbability) + "%");
+                if (jsonResponse.isReal) {
+                    $("#news-text").val("This is real news with a probability " + probability + "%");
                 } else {
-                    $("#news-text").val("This is real news with a probability " + fakeProbability  + "%");
+                    $("#news-text").val("This is fake news with a probability " + probability + "%");
                 }
 
                 isSuccess = true;
-            } catch (error)
-            {
+            } catch (error) {
                 isError = true;
             }
         } else { // если всё прошло гладко, выводим результат
