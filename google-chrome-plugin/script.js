@@ -13,7 +13,7 @@ function detectNews() {
     xhr.open('POST', 'http://paulrozhkin.ru:6257/api/fake/');
     xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
 
-    const data = JSON.stringify({"news": "test"});
+    const data = JSON.stringify({"news": $("#news-text").val()});
     xhr.send(data);
 
     xhr.onload = function () {
