@@ -10,9 +10,7 @@ def load_specific_model():
 
     tokenizer = BertTokenizer.from_pretrained("./saved_model/")
 
-    model = torch.load("model_after_train.pt", map_location=torch.device('cpu'))
-
-    #model = model.to(device)
+    model = torch.load("model_after_train.pt", map_location=device)
 
     model.eval()
 
@@ -33,9 +31,10 @@ def detect_fake(text, device, model, tokenizer):
 
     value, result = overall_output.max(0)
 
-    term = "fake"
+    term = False
     if result.item() == 0:
-        term = "real"
-
+        if (value.item()*100 >= 70):
+            term = True
+    #print(result.item())
     print("{} at {}%".format(term, value.item() * 100))
     return term, value.item() * 100

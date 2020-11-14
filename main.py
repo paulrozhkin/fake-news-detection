@@ -19,9 +19,9 @@ def create_app():
         json_data = flask.request.json
         news = json_data["news"]
 
-        is_fake, probability = detect_fake(news, device, model, tokenizer)
+        is_real, probability = detect_fake(news, device, model, tokenizer)
         return jsonify(
-            isFake=is_fake,
+            isReal=is_real,
             probability=probability
         )
 
