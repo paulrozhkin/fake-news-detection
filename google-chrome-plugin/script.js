@@ -10,7 +10,7 @@ function detectNews() {
     updateControls();
 
     let xhr = new XMLHttpRequest();
-    xhr.open('POST', 'http://127.0.0.1:6257/api/fake/');
+    xhr.open('POST', 'http://paulrozhkin.ru:6257/api/fake/');
     xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
 
     const data = JSON.stringify({"news": "test"});
@@ -23,10 +23,12 @@ function detectNews() {
             try {
                 const jsonResponse = JSON.parse(xhr.response);
 
+		const fakeProbability = Number(jsonResponse.probability).toFixed(2)
+
                 if (jsonResponse.isFake) {
-                    $("#news-text").val("It's a fake");
+                    $("#news-text").val("This is fake news with a probability " + (100 - fakeProbability) + "%");
                 } else {
-                    $("#news-text").val("It's not a fake");
+                    $("#news-text").val("This is real news with a probability " + fakeProbability  + "%");
                 }
 
                 isSuccess = true;
