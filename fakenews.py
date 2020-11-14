@@ -10,9 +10,9 @@ def load_specific_model():
 
     tokenizer = BertTokenizer.from_pretrained("./saved_model/")
 
-    model = torch.load("model_after_train.pt")
+    model = torch.load("model_after_train.pt", map_location=torch.device('cpu'))
 
-    model = model.to(device)
+    #model = model.to(device)
 
     model.eval()
 

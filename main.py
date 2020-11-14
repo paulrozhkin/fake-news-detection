@@ -9,6 +9,7 @@ from fakenews import load_specific_model, detect_fake
 app = Flask(__name__)
 CORS(app)
 
+#Uncomment for re-train
 #training_and_save_model()
 device, model, tokenizer = load_specific_model()
 
