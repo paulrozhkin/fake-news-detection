@@ -1,17 +1,16 @@
-from flask import jsonify
 import flask
 from flask import Flask
+from flask import jsonify
 from flask_cors import CORS
-import time
 
-from detector import detect, test_news
-from fakenews import fknws_two
+from detector import training_and_save_model, test_news
+from fakenews import load_specific_model
 
 app = Flask(__name__)
 CORS(app)
 
-#fknws_two()
-device, model, tokenizer = detect()
+#training_and_save_model()
+device, model, tokenizer = load_specific_model()
 
 @app.route('/api/fake/', methods=["POST"])
 def fake_detector():
@@ -19,12 +18,11 @@ def fake_detector():
     news = json_data["news"]
 
     isFake, probability = test_news(news, device, model, tokenizer)
-
     return jsonify(
-        isFake,
-        probability
+        isFake=isFake,
+        probability=probability
     )
-    # return json.dumps({"isFake": True, "probability": 1})
+    # return jsonify(isFake: real, probability=1)
 
 
 if __name__ == "__main__":
